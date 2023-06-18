@@ -19,7 +19,7 @@ This project is a Next.js application created to practice using Redux Toolkit. I
 - **useEffect**: Manages side effects, such as fetching data from local storage to persist user-selected movies, allowing for dynamic updates and seamless user experience.
 
 ## Live Link
-[[https://shopfinity.vercel.app/](https://redux-exercise-ten.vercel.app/users)](https://redux-exercise-ten.vercel.app/users)
+[https://redux-exercise-ten.vercel.app/](https://redux-exercise-ten.vercel.app/)
 
 ---
 
