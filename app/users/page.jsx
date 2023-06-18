@@ -1,8 +1,9 @@
-'use client'
+"use client";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUsers } from "../features/usersSlice/usersSlice";
 import { v4 as uuidv4 } from "uuid";
+import Loader from "../components/Loader";
 
 function Users() {
   const users = useSelector((state) => state.users);
@@ -16,9 +17,17 @@ function Users() {
 
   console.log(flatUsersArr);
 
+  const wait = (duration) => {
+    return new Promise((resolve) => setTimeout(resolve, duration));
+  };
+
   return (
     <>
-      {users.loading && <div>...loading</div>}
+      {users.loading && (
+        <div className="flex items-center justify-center text-black">
+          <Loader />
+        </div>
+      )}
       {users.error && <div>{users.error}</div>}
       {(users.loading || users.users.length > 0) && (
         <div className="grid grid-cols-1 place-items-center md:grid-cols-2 lg:grid-cols-3  gap-5 md:space-x-3 ">
