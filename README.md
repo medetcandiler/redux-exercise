@@ -1,4 +1,4 @@
-# //Can you generate header for here regarding below informatins !!!
+# Next.js Application with Redux Toolkit
 
 This project is a Next.js application created to practice using Redux Toolkit. It allows users to nominate their favorite films or series and incorporates various technologies and libraries. The project utilizes Next.js router system for navigation and leverages React Hook Form with Yup for form validation. Material-UI components are used for building the user interface. The project aims to showcase the integration of Redux Toolkit for state management, Next.js for routing, and the usage of form validation with React Hook Form and Yup.
 
