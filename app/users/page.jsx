@@ -10,21 +10,18 @@ function Users() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchUsers());
-  }, [dispatch]);
+    if(!users.users.length){
+      dispatch(fetchUsers())
+    }
+  }, [dispatch, users.users.length]);
 
   const flatUsersArr = users.users.flatMap((arr) => arr);
 
-  console.log(flatUsersArr);
-
-  const wait = (duration) => {
-    return new Promise((resolve) => setTimeout(resolve, duration));
-  };
 
   return (
     <>
       {users.loading && (
-        <div className="flex items-center justify-center text-black">
+        <div className="flex items-center   justify-center text-black">
           <Loader />
         </div>
       )}
@@ -44,6 +41,9 @@ function Users() {
                 <span className="text-xl font-bold">User name:</span>
                 {user.name}
               </h1>
+              <h1></h1>
+              <h2></h2>
+              
               <h1>
                 <span className="text-xl font-bold">User email:</span>
                 {user.email}

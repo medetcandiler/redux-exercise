@@ -8,6 +8,7 @@ import { updateForm } from "../features/formSlice/formSlice";
 import { addUser } from "../features/usersSlice/usersSlice";
 import { useState } from "react";
 import Success from "../components/Success";
+import { v4 as uuidv4 } from 'uuid';
 
 
 const schema = yup.object({
@@ -21,6 +22,7 @@ function Form() {
   const dispatch = useDispatch();
   const formState = useSelector((state) => state.form);
 
+
   const {
     register,
     handleSubmit,
@@ -32,6 +34,7 @@ function Form() {
       name: formState.userName,
       email: formState.email,
       phone: formState.phoneNumber,
+      id: formState.id,
     },
   });
 
@@ -40,9 +43,12 @@ function Form() {
     setTimeout(() => {
       setIsSuccess(false)
     },1000)
-    dispatch(addUser(data));
+    dispatch(addUser({
+      ...data, id: uuidv4(),
+    }));
     reset();
   };
+
 
 
   const handleChange = (e) => {

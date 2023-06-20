@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   name:'',
   email:'',
-  phone:'' 
+  phone:'',
+  id:0,
 };
 
 const formSlice = createSlice({
