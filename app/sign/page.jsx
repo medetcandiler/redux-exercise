@@ -8,13 +8,12 @@ import { updateForm } from "../features/formSlice/formSlice";
 import { addUser } from "../features/usersSlice/usersSlice";
 import { useState } from "react";
 import Success from "../components/Success";
-import { v4 as uuidv4 } from 'uuid';
-
+import { v4 as uuidv4 } from "uuid";
 
 const schema = yup.object({
   name: yup.string().required(),
   email: yup.string().email().required(),
-  phone: yup.string().required(),
+  phone: yup.number().required().positive().integer(),
 });
 
 function Form() {
@@ -22,12 +21,12 @@ function Form() {
   const dispatch = useDispatch();
   const formState = useSelector((state) => state.form);
 
-
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
+    data,
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -41,15 +40,13 @@ function Form() {
   const onSubmit = (data) => {
     setIsSuccess(true);
     setTimeout(() => {
-      setIsSuccess(false)
-    },1000)
-    dispatch(addUser({
-      ...data, id: uuidv4(),
-    }));
+      setIsSuccess(false);
+    }, 1000);
+    const newData = { ...data, id: uuidv4() };
+    dispatch(addUser(newData));
+    console.log(newData);
     reset();
   };
-
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -59,7 +56,6 @@ function Form() {
   return (
     <>
       <form
-        action="#"
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col space-y-5 w-full items-center"
       >

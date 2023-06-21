@@ -6,6 +6,15 @@
   .input{
     @apply border border-slate-700 rounded-md w-72 py-2.5;
   }
+  .link{
+    @apply bg-black text-white rounded-md px-4 py-2 mt-2;
+  }
+}
+
+@layer base{
+  .input-delete{
+    @apply bg-black text-white rounded-md px-4 py-2 mt-2
+  }
 }
 
 @-webkit-keyframes honeycomb {

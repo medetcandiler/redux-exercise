@@ -1,22 +1,28 @@
 "use client";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchUsers } from "../features/usersSlice/usersSlice";
 import { v4 as uuidv4 } from "uuid";
+import Link from "next/link";
+import { FaTrash } from 'react-icons/fa'
+
+import { fetchUsers } from "../features/usersSlice/usersSlice";
 import Loader from "../components/Loader";
+import { deleteUser } from "../features/usersSlice/usersSlice";
 
 function Users() {
   const users = useSelector((state) => state.users);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(!users.users.length){
-      dispatch(fetchUsers())
+    if (!users.users.length) {
+      dispatch(fetchUsers());
     }
   }, [dispatch, users.users.length]);
 
-  const flatUsersArr = users.users.flatMap((arr) => arr);
 
+  const handleDelete = (id) => {
+    dispatch(deleteUser(id))
+  }
 
   return (
     <>
@@ -28,9 +34,9 @@ function Users() {
       {users.error && <div>{users.error}</div>}
       {(users.loading || users.users.length > 0) && (
         <div className="grid grid-cols-1 place-items-center md:grid-cols-2 lg:grid-cols-3  gap-5 md:space-x-3 ">
-          {flatUsersArr.map((user) => (
+          {users.users.map((user) => (
             <div
-              className="border flex flex-col items-center border-zinc-600 w-96 h-auto py-10 border-collapse rounded-md shadow-lg"
+              className="border flex flex-col items-center border-zinc-600 w-96  p-10 border-collapse rounded-md shadow-xl"
               key={uuidv4()}
             >
               <h1>
@@ -43,7 +49,7 @@ function Users() {
               </h1>
               <h1></h1>
               <h2></h2>
-              
+
               <h1>
                 <span className="text-xl font-bold">User email:</span>
                 {user.email}
@@ -52,11 +58,12 @@ function Users() {
                 <span className="text-xl font-bold">User phone:</span>
                 {user.phone}
               </h1>
-              <h1 className="bg-black text-white rounded-md px-4 py-2 mt-2">
-                <a target="_alt" href={user.email}>
-                  {user.email}
-                </a>
-              </h1>
+              <Link className="link" target="_alt" href='#' >
+                {user.email}
+              </Link>
+              <button onClick={() => handleDelete(user.id)} className="mt-2 text-white bg-red-600 p-2 rounded-full hover:bg-white  hover:text-red-600 ">
+                <FaTrash />
+              </button>
             </div>
           ))}
         </div>
